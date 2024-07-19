@@ -1,0 +1,2 @@
+class UserIsNotWinner(Exception):
+    pass

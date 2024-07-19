@@ -1,0 +1,6 @@
+aiogram
+sqlalchemy
+asyncpg
+greenlet
+pydantic-settings
+AiogramStorages
