@@ -24,4 +24,9 @@ async def main() -> None:
 
 if __name__ == "__main__":
     logging.basicConfig(level=logging.INFO, stream=sys.stdout)
-    asyncio.run(main())
+    while True:
+        try:
+            asyncio.run(main())
+        except Exception as e:
+            with open('crashes.txt', 'at', encoding='utf-8') as file:
+                print(e, file=file)

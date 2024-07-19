@@ -114,9 +114,9 @@ async def asked_for_wallet(message: Message, state: FSMContext):
         await user_service.set_wallet_address(telegram_id=message.from_user.id, wallet_address=address)
 
     await message.answer("Wallet address saved! You will receive your reward soon.")
-    await state.clear()
+    await state.set_state(QuestState.ALL_QUESTIONS_ANSWERED)
 
 
-@router.message()
+@router.message(QuestState.ALL_QUESTIONS_ANSWERED)
 async def already_completed(message: Message):
     await message.answer("You've already completed the quest!")
