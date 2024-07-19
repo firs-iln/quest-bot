@@ -51,7 +51,7 @@ async def start(message: Message, state: FSMContext):
 @router.message(QuestState.FIRST_QUESTION_ASKED)
 async def second_question(message: Message, state: FSMContext):
     if not main_quest.check_answer(1, message.text):
-        await message.answer("wrong answer")
+        await message.answer("This answer is wrong")
         return
 
     await message.answer("First answer is right! Here's the second one:")
@@ -62,7 +62,7 @@ async def second_question(message: Message, state: FSMContext):
 @router.message(QuestState.SECOND_QUESTION_ASKED)
 async def third_question(message: Message, state: FSMContext):
     if not main_quest.check_answer(2, message.text):
-        await message.answer("wrong answer")
+        await message.answer("This answer is wrong")
         return
 
     await message.answer("Second answer is right! Let's go deeper:")
@@ -73,7 +73,7 @@ async def third_question(message: Message, state: FSMContext):
 @router.message(QuestState.THIRD_QUESTION_ASKED)
 async def fourth_question(message: Message, state: FSMContext):
     if not main_quest.check_answer(3, message.text):
-        await message.answer("wrong answer")
+        await message.answer("This answer is wrong")
         return
 
     await message.answer("Good for you! Could you deal with the next question?")
@@ -84,7 +84,7 @@ async def fourth_question(message: Message, state: FSMContext):
 @router.message(QuestState.FOURTH_QUESTION_ASKED)
 async def fourth_question(message: Message, state: FSMContext):
     if not main_quest.check_answer(4, message.text):
-        await message.answer("wrong answer")
+        await message.answer("This answer is wrong")
         return
 
     await message.answer("Fourth answer is right!")
