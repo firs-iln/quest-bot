@@ -46,6 +46,10 @@ class UserService:
         update_schema = UserUpdate(story_link=story_link)
         await self.user_repo.update(telegram_id=user_id, schema=update_schema)
 
+    async def passed_first_day(self, user_id: str):
+        update_schema = UserUpdate(passed_first_day=True)
+        return await self.user_repo.update(user_id, update_schema)
+
 
 @asynccontextmanager
 async def get_user_service(winners_amount: int = None, winners_prizes: dict[int, str] = None) -> UserService:

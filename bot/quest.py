@@ -55,6 +55,9 @@ async def second_question(message: Message, state: FSMContext):
         return
 
     await message.answer("Thats the right answer! The second stage starts tomorrow, follow @yumify")
+    async with get_user_service() as user_service:
+        await user_service.passed_first_day(message.from_user.id)
+
     await state.set_state(QuestState.FIRST_QUESTION_CHECKED)
 
 
