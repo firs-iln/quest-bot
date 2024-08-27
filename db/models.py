@@ -20,3 +20,4 @@ class User(Base):
     quest_passed: Mapped[bool] = mapped_column(default=False)
     quest_passed_at: Mapped[Optional[datetime]] = mapped_column(default=None)
     wallet_address: Mapped[Optional[str]]
+    story_link: Mapped[Optional[str]]

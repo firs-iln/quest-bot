@@ -9,6 +9,7 @@ class Settings(BaseSettings):
     POSTGRES_USER: str
     POSTGRES_PASSWORD: SecretStr
     TOKEN: SecretStr
+    QUEST_STEP: int
 
     @property
     def db_url(self) -> str:
@@ -18,8 +19,8 @@ class Settings(BaseSettings):
 
 
 class QuestConfig(BaseSettings):
-    YESCOIN_CHANNEL: str
-    CHAT_WITH_AGENT: str
+    # YESCOIN_CHANNEL: str
+    # CHAT_WITH_AGENT: str
 
     model_config = SettingsConfigDict(env_file='quest.env', env_file_encoding='utf-8')
 

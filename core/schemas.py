@@ -14,6 +14,7 @@ class UserUpdate(BaseModel):
     quest_passed: Optional[bool] = None
     quest_passed_at: Optional[datetime] = None
     wallet_address: Optional[str] = None
+    story_link: Optional[str] = None
 
 
 class UserSchema(BaseModel):
@@ -22,5 +23,6 @@ class UserSchema(BaseModel):
     quest_passed: bool
     quest_passed_at: Optional[datetime]
     wallet_address: Optional[str]
+    story_link: Optional[str]
 
     model_config = ConfigDict(from_attributes=True)

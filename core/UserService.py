@@ -42,19 +42,26 @@ class UserService:
         update_schema = UserUpdate(wallet_address=wallet_address)
         return await self.user_repo.update(telegram_id, update_schema)
 
+    async def add_story_link(self, user_id: int, story_link: str):
+        update_schema = UserUpdate(story_link=story_link)
+        await self.user_repo.update(telegram_id=user_id, schema=update_schema)
+
 
 @asynccontextmanager
 async def get_user_service(winners_amount: int = None, winners_prizes: dict[int, str] = None) -> UserService:
     if not winners_amount:
-        winners_amount = 4
+        winners_amount = 25
 
     if not winners_prizes:
         winners_prizes = {
-            1: '400$',
-            2: '300$',
-            3: '200$',
-            4: '100$',
+            1: '300',
+            2: '250',
+            3: '200',
+            4: '150',
+            5: '100',
         }
+        for i in range(6, 26):
+            winners_prizes[i] = "50"
 
     async with get_user_repo() as user_repo:
         yield UserService(
