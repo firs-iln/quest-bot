@@ -18,12 +18,12 @@ class Settings(BaseSettings):
     model_config = SettingsConfigDict(env_file='.env', env_file_encoding='utf-8')
 
 
-class QuestConfig(BaseSettings):
-    # YESCOIN_CHANNEL: str
-    # CHAT_WITH_AGENT: str
-
-    model_config = SettingsConfigDict(env_file='quest.env', env_file_encoding='utf-8')
+# class QuestConfig(BaseSettings):
+#     # YESCOIN_CHANNEL: str
+#     # CHAT_WITH_AGENT: str
+#
+#     model_config = SettingsConfigDict(env_file='quest.env', env_file_encoding='utf-8')
 
 
 config = Settings()
-quest_config = QuestConfig()
+# quest_config = QuestConfig()

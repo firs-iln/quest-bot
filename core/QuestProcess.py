@@ -1,6 +1,3 @@
-from config import quest_config
-
-
 class Question:
     def __init__(self, question: str, answers: list[str]):
         self.question = question

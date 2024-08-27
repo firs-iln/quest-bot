@@ -21,5 +21,5 @@ class User(Base):
     quest_passed_at: Mapped[Optional[datetime]] = mapped_column(default=None)
     wallet_address: Mapped[Optional[str]]
     story_link: Mapped[Optional[str]]
-    passed_first_day: Mapped[bool] = mapped_column(default=False)
-    passed_second_day: Mapped[bool] = mapped_column(default=False)
+    passed_first_day: Mapped[Optional[bool]] = mapped_column(default=False)
+    passed_second_day: Mapped[Optional[bool]] = mapped_column(default=False)
