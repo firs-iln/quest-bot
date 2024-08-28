@@ -78,18 +78,27 @@ async def check_second_question(message: Message, state: FSMContext):
         return
 
     await message.answer("nice dick")
+    async with get_user_service() as user_service:
+        await user_service.passed_second_day(user_id=message.from_user.id)
+
     await state.set_state(QuestState.SECOND_QUESTION_CHECKED)
 
 
-@router.message(QuestState.SECOND_QUESTION_CHECKED)
+@router.message(QuestState.SECOND_QUESTION_CHECKED, lambda _: config.QUEST_STEP in [2, 3])
 async def hi(message: Message, state: FSMContext):
+    if config.QUEST_STEP == 2:
+        await message.answer(
+            "It's all for today! Come back tomorrow to take part in our quest (follow @yumify to stay informed)"
+        )
+        return
+
     await message.answer("We are pleased to welcome you to the second stage of the @yumify quest!"
                          "This time it will be more difficult and interesting! Good luck!")
     await message.answer("Send me your TON wallet")
     await state.set_state(QuestState.ASKED_FOR_WALLET)
 
 
-@router.message(QuestState.ASKED_FOR_WALLET)
+@router.message(QuestState.ASKED_FOR_WALLET, lambda _: config.QUEST_STEP == 3)
 async def ask_confirm_wallet(message: Message, state: FSMContext):
     wallet = message.text
     markup = InlineKeyboardMarkup(inline_keyboard=
@@ -105,9 +114,12 @@ async def ask_confirm_wallet(message: Message, state: FSMContext):
     await state.set_state(QuestState.ASKED_FOR_WALLET_CONFIRM)
 
 
-@router.callback_query(QuestState.ASKED_FOR_WALLET_CONFIRM, F.data.startswith("confirm"))
+@router.callback_query(
+    QuestState.ASKED_FOR_WALLET_CONFIRM,
+    F.data.startswith("confirm"),
+    lambda _: config.QUEST_STEP == 3
+)
 async def save_wallet(callback: CallbackQuery, state: FSMContext, bot: Bot):
-    # await callback.answer()
     address = callback.data.replace("confirm_", "")
     async with get_user_service() as user_service:
         await user_service.set_wallet_address(telegram_id=callback.from_user.id, wallet_address=address)
@@ -138,7 +150,7 @@ async def save_wallet(callback: CallbackQuery, state: FSMContext, bot: Bot):
 #     await message.answer(message.photo[0].file_id)
 
 
-@router.message(QuestState.ASKED_FOR_LINK)
+@router.message(QuestState.ASKED_FOR_LINK, lambda _: config.QUEST_STEP == 3)
 async def save_story_link(message: Message, state: FSMContext):
     link = message.text
     # сохранить
@@ -162,13 +174,13 @@ async def save_story_link(message: Message, state: FSMContext):
     await state.set_state(QuestState.SAVED_LINK)
 
 
-@router.callback_query(QuestState.SAVED_LINK, F.data == "ready")
+@router.callback_query(QuestState.SAVED_LINK, F.data == "ready", lambda _: config.QUEST_STEP == 3)
 async def third_question(callback: CallbackQuery, state: FSMContext, bot: Bot):
     await bot.send_message(text=main_quest.get_question(3), chat_id=callback.from_user.id)
     await state.set_state(QuestState.THIRD_QUESTION_ASKED)
 
 
-@router.message(QuestState.THIRD_QUESTION_ASKED)
+@router.message(QuestState.THIRD_QUESTION_ASKED, lambda _: config.QUEST_STEP == 3)
 async def fourth_question(message: Message, state: FSMContext):
     if not main_quest.check_answer(3, message.text):
         await message.answer("This answer is wrong")
@@ -179,7 +191,7 @@ async def fourth_question(message: Message, state: FSMContext):
     await state.set_state(QuestState.FOURTH_QUESTION_ASKED)
 
 
-@router.message(QuestState.FOURTH_QUESTION_ASKED)
+@router.message(QuestState.FOURTH_QUESTION_ASKED, lambda _: config.QUEST_STEP == 3)
 async def fifth_question(message: Message, state: FSMContext):
     if not main_quest.check_answer(4, message.text):
         await message.answer("This answer is wrong")
@@ -190,7 +202,7 @@ async def fifth_question(message: Message, state: FSMContext):
     await state.set_state(QuestState.FIFTH_QUESTION_ASKED)
 
 
-@router.message(QuestState.FIFTH_QUESTION_ASKED)
+@router.message(QuestState.FIFTH_QUESTION_ASKED, lambda _: config.QUEST_STEP == 3)
 async def sixth_question(message: Message, state: FSMContext):
     if not main_quest.check_answer(5, message.text):
         await message.answer("This answer is wrong")
@@ -201,7 +213,7 @@ async def sixth_question(message: Message, state: FSMContext):
     await state.set_state(QuestState.SIXTH_QUESTION_ASKED)
 
 
-@router.message(QuestState.SIXTH_QUESTION_ASKED)
+@router.message(QuestState.SIXTH_QUESTION_ASKED, lambda _: config.QUEST_STEP == 3)
 async def seventh_question(message: Message, state: FSMContext):
     if not main_quest.check_answer(6, message.text):
         await message.answer("This answer is wrong")
@@ -212,7 +224,7 @@ async def seventh_question(message: Message, state: FSMContext):
     await state.set_state(QuestState.SEVENTH_QUESTION_ASKED)
 
 
-@router.message(QuestState.SEVENTH_QUESTION_ASKED)
+@router.message(QuestState.SEVENTH_QUESTION_ASKED, lambda _: config.QUEST_STEP == 3)
 async def eighth_question(message: Message, state: FSMContext):
     if not main_quest.check_answer(7, message.text):
         await message.answer("This answer is wrong")
@@ -223,7 +235,7 @@ async def eighth_question(message: Message, state: FSMContext):
     await state.set_state(QuestState.EIGHTH_QUESTION_ASKED)
 
 
-@router.message(QuestState.EIGHTH_QUESTION_ASKED)
+@router.message(QuestState.EIGHTH_QUESTION_ASKED, lambda _: config.QUEST_STEP == 3)
 async def ninth_question(message: Message, state: FSMContext):
     if not main_quest.check_answer(8, message.text):
         await message.answer("This answer is wrong")
@@ -234,7 +246,7 @@ async def ninth_question(message: Message, state: FSMContext):
     await state.set_state(QuestState.NINTH_QUESTION_ASKED)
 
 
-@router.message(QuestState.NINTH_QUESTION_ASKED)
+@router.message(QuestState.NINTH_QUESTION_ASKED, lambda _: config.QUEST_STEP == 3)
 async def tenth_question(message: Message, state: FSMContext):
     if not main_quest.check_answer(9, message.text):
         await message.answer("This answer is wrong")
@@ -245,7 +257,7 @@ async def tenth_question(message: Message, state: FSMContext):
     await state.set_state(QuestState.TENTH_QUESTION_ASKED)
 
 
-@router.message(QuestState.TENTH_QUESTION_ASKED)
+@router.message(QuestState.TENTH_QUESTION_ASKED, lambda _: config.QUEST_STEP == 3)
 async def eleventh_question(message: Message, state: FSMContext):
     if not main_quest.check_answer(10, message.text):
         await message.answer("This answer is wrong")
@@ -256,7 +268,7 @@ async def eleventh_question(message: Message, state: FSMContext):
     await state.set_state(QuestState.ELEVENTH_QUESTION_ASKED)
 
 
-@router.message(QuestState.ELEVENTH_QUESTION_ASKED)
+@router.message(QuestState.ELEVENTH_QUESTION_ASKED, lambda _: config.QUEST_STEP == 3)
 async def last_question_check(message: Message, state: FSMContext):
     if not main_quest.check_answer(11, message.text):
         await message.answer("This answer is wrong")

@@ -3,3 +3,4 @@ sqlalchemy
 asyncpg
 greenlet
 pydantic-settings
+apscheduler
