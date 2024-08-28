@@ -17,7 +17,9 @@ logger = logging.getLogger(__name__)
 
 
 def increase_quest_step():
-    config.QUEST_STEP += 1
+    with open("quest_step.txt") as qs_file:
+        config.QUEST_STEP = int(qs_file.read().strip())
+
     logger.info(config.QUEST_STEP)
 
 
@@ -32,15 +34,13 @@ async def main() -> None:
 
     logger.info(datetime.now())
 
-    for i in range(2):
-        scheduler.add_job(
-            increase_quest_step,
-            trigger="date",
-
-            # TODO: replace time
-            next_run_time=datetime.strptime(f"{28 + i}.08.2024 10:05", "%d.%m.%Y %H:%M"),
-            max_instances=1,
-        )
+    scheduler.add_job(
+        increase_quest_step,
+        trigger="interval",
+        seconds=60,
+        # next_run_time=datetime.strptime(f"{28 + i}.08.2024 10:05", "%d.%m.%Y %H:%M"),
+        max_instances=1,
+    )
 
     scheduler.start()
 
