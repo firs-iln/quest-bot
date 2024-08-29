@@ -61,6 +61,19 @@ async def second_question(message: Message, state: FSMContext):
     await state.set_state(QuestState.FIRST_QUESTION_CHECKED)
 
 
+@router.message(QuestState.SECOND_QUESTION_ASKED, lambda _: config.QUEST_STEP == 2)
+async def check_second_question(message: Message, state: FSMContext):
+    if not main_quest.check_answer(2, message.text):
+        await message.answer("This answer is wrong")
+        return
+
+    await message.answer("Right!")
+    async with get_user_service() as user_service:
+        await user_service.passed_second_day(user_id=message.from_user.id)
+
+    await state.set_state(QuestState.SECOND_QUESTION_CHECKED)
+
+
 @router.message(lambda _: config.QUEST_STEP in [1, 2])
 async def second_question(message: Message, state: FSMContext):
     if config.QUEST_STEP == 1:
@@ -71,36 +84,40 @@ async def second_question(message: Message, state: FSMContext):
         try:
             user = await user_service.get_user(telegram_id=message.from_user.id)
         except NotFoundException:
-            await message.answer("Sorry, you had to take part in the first day of our quest to continue\nFollow @yumify and stay tuned for new activities!")
+            await message.answer(
+                "Sorry, you had to take part in the first day of our quest to continue\nFollow @yumify and stay tuned for new activities!"
+            )
             return
 
     if not user.passed_first_day:
-        await message.answer("Sorry, you had to solve previous task to take part in today's quest\nFollow @yumify and stay tuned for new activities!")
+        await message.answer(
+            "Sorry, you had to solve previous task to take part in today's quest\nFollow @yumify and stay tuned for new activities!"
+        )
         return
 
     await message.answer(main_quest.get_question(2))
     await state.set_state(QuestState.SECOND_QUESTION_ASKED)
 
 
-@router.message(QuestState.SECOND_QUESTION_ASKED, lambda _: config.QUEST_STEP == 2)
-async def check_second_question(message: Message, state: FSMContext):
-    if not main_quest.check_answer(2, message.text):
-        await message.answer("This answer is wrong")
-        return
-
-    await message.answer("nice dick")
-    async with get_user_service() as user_service:
-        await user_service.passed_second_day(user_id=message.from_user.id)
-
-    await state.set_state(QuestState.SECOND_QUESTION_CHECKED)
-
-
-@router.message(QuestState.SECOND_QUESTION_CHECKED, lambda _: config.QUEST_STEP in [2, 3])
+@router.message(lambda _: config.QUEST_STEP in [2, 3])
 async def hi(message: Message, state: FSMContext):
     if config.QUEST_STEP == 2:
         await message.answer(
             "It's all for today! Come back tomorrow to take part in our quest (follow @yumify to stay informed)"
         )
+        return
+
+    async with get_user_service() as user_service:
+        try:
+            user = await user_service.get_user(telegram_id=message.from_user.id)
+        except NotFoundException:
+            await message.answer(
+                "Sorry, you had to take part in the second day of our quest to continue\nFollow @yumify and stay tuned for new activities!")
+            return
+
+    if not user.passed_first_day:
+        await message.answer(
+            "Sorry, you had to solve previous task to take part in today's quest\nFollow @yumify and stay tuned for new activities!")
         return
 
     await message.answer("We are pleased to welcome you to the second stage of the @yumify quest!"
