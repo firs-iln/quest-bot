@@ -46,7 +46,7 @@ main_quest = Quest(
             ["Funny guys"],
         ),
         Question(
-            "Shall we go for a walk? Find our spy agent (@scamjettontonchat) in the chat and ask him for the key. Enter it.",
+            "Shall we go for a walk? Find our spy agent in the chat (@scamjettontonchat) and ask him for the key. Enter it.",
             ["The Yumify team says hello to this chat!"],
         ),
         Question(
