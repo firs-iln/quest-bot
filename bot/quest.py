@@ -61,10 +61,21 @@ async def second_question(message: Message, state: FSMContext):
     await state.set_state(QuestState.FIRST_QUESTION_CHECKED)
 
 
-@router.message(QuestState.FIRST_QUESTION_CHECKED, lambda _: config.QUEST_STEP in [1, 2])
+@router.message(lambda _: config.QUEST_STEP in [1, 2])
 async def second_question(message: Message, state: FSMContext):
     if config.QUEST_STEP == 1:
         await message.answer("Be patient! The second stage starts tomorrow, follow @yumify")
+        return
+
+    async with get_user_service() as user_service:
+        try:
+            user = await user_service.get_user(telegram_id=message.from_user.id)
+        except NotFoundException:
+            await message.answer("Sorry, you had to take part in the first day of our quest to continue\nFollow @yumify and stay tuned for new activities!")
+            return
+
+    if not user.passed_first_day:
+        await message.answer("Sorry, you had to solve previous task to take part in today's quest\nFollow @yumify and stay tuned for new activities!")
         return
 
     await message.answer(main_quest.get_question(2))
