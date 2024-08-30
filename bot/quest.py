@@ -134,7 +134,7 @@ async def save_wallet(callback: CallbackQuery, state: FSMContext, bot: Bot):
                                 "Send the link to your story to me. Do not delete it until our manager writes to you. "
                                 "(Post a stories for 48 hours)")
     await bot.send_photo(chat_id=callback.from_user.id,
-                         photo='AgACAgIAAxkBAAOCZtGpON53Ea_mqNfjdruKyOItS7UAAongMRsblpFK2mzN2bKe1vMBAAMCAANzAAM1BA')
+                         photo='AgACAgIAAxkBAAIBFWbRyi937f-5L1jURQbkMkewUagDAAKJ4DEbG5aRStpszdmyntbzAQADAgADcwADNQQ')
     await state.set_state(QuestState.ASKED_FOR_LINK)
 
 
@@ -151,7 +151,7 @@ async def save_wallet(callback: CallbackQuery, state: FSMContext, bot: Bot):
 # @router.message()
 # async def get_file_id(message: Message):
 #     await message.answer(message.document.file_id)
-#     # await message.answer(message.photo[0].file_id)
+#     await message.answer(message.photo[0].file_id)
 
 
 @router.message(QuestState.ASKED_FOR_LINK, lambda _: config.QUEST_STEP == 3)
@@ -247,7 +247,7 @@ async def ninth_question(message: Message, state: FSMContext):
 
     await message.answer("Yes, that's right")
     await message.answer(main_quest.get_question(9))
-    await message.answer_document(document="BQACAgIAAxkBAAOEZtGpfBjsCiiSZPIoroVg2gVx_LIAAsBPAAIblpFK3UfXXF7lArs1BA")
+    await message.answer_document(document="BQACAgIAAxkBAAIBGGbRynm8wvnaGMhv9TF4ZG_msBSjAAI0VwACEcyQSvTJxtRGua1jNQQ")
     await state.set_state(QuestState.NINTH_QUESTION_ASKED)
 
 
