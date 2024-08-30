@@ -71,7 +71,7 @@ main_quest = Quest(
             "rqa utlrbe. djpw fubyjc nuuj",
             [
                 "Two months. Very little time",
-                "two months.very little time"
+                "two months .very little time"
             ],
         ),
         Question(
@@ -96,7 +96,8 @@ main_quest = Quest(
         Question(
             "10. It won't be that easy, don't get too excited. Moreover, one letter is missing. "
             "I will say that this is letter number 5. But where it is lost and why I will not say. Good luck!\n"
-            "(Use Caps Lock when writing your answer. And if you get an answer without spaces... do them yourself)"
+            "(Use Caps Lock when writing your answer. And if you get an answer without spaces... do them yourself)\n"
+            "p.s. for the second stage there are decryptors of the chosen cipher that do not use the key. Find the version where you can select it\n"
             ".-- --  -... -- --.  .--. ... --.- .  .... - ... ..  -.- --. . .. .... ..--..",
 
             ["DO YOU LIKE THIS QUEST?"],
