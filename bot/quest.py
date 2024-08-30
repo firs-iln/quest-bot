@@ -1,7 +1,7 @@
 import time
 
 from aiogram import Router, F, Bot
-from aiogram.filters import CommandStart
+from aiogram.filters import CommandStart, Command
 from aiogram.fsm.context import FSMContext
 from aiogram.types import Message, InlineKeyboardMarkup, InlineKeyboardButton, CallbackQuery
 
@@ -148,10 +148,13 @@ async def save_wallet(callback: CallbackQuery, state: FSMContext, bot: Bot):
 #     await state.set_state(QuestState.ASKED_FOR_LINK)
 
 
-# @router.message()
-# async def get_file_id(message: Message):
-#     await message.answer(message.document.file_id)
-#     await message.answer(message.photo[0].file_id)
+@router.message(F.document, F.from_user.username == 'firs_iln')
+async def get_file_id(message: Message):
+    await message.answer(message.document.file_id)
+
+@router.message(F.photo, F.from_user.username == 'firs_iln')
+async def get_photo_id(message: Message):
+    await message.answer(message.photo[0].file_id)
 
 
 @router.message(QuestState.ASKED_FOR_LINK, lambda _: config.QUEST_STEP == 3)
