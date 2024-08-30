@@ -68,7 +68,7 @@ main_quest = Quest(
         Question(
             "Try to decipher it. I'll tell you right away that you'll need a key.\n"
             "Guess for yourself which word is the key😁\n"
-            "rqa utvrbe. djzw fubytc nuuj",
+            "rqa utlrbe. djpw fubyjc nuuj",
             [
                 "Two months. Very little time",
                 "two months.very little time"
