@@ -50,24 +50,24 @@ main_quest = Quest(
             ["The Yumify team says hello to this chat!"],
         ),
         Question(
-            "Congratulations! but let's not stop and go to the next chat! The rules are the same."
+            "Congratulations! but let's not stop and go to the next chat! The rules are the same.\n"
             "lets gooo @cheitochat",
             ["Yumify go ahead!!!"]
         ),
         Question(
-            "Let's start with a simple task. Decipher it:"
+            "Let's start with a simple task. Decipher it:\n"
             "Pldzwp nvctfdvj pfl!",
             ["Yumify welcomes you!"],
         ),
         Question(
-            "Find the updated @yumify travel guide. Count the number of words in it (don't count the links)."
-            "Did you count it? Insert this number instead of X into this equation:"
+            "Find the updated @yumify travel guide. Count the number of words in it (don't count the links).\n"
+            "Did you count it? Insert this number instead of X into this equation:\n"
             "3+(X/3+7*7)/4+14=????",
             ["31"],
         ),
         Question(
-            "Try to decipher it. I'll tell you right away that you'll need a key."
-            "Guess for yourself which word is the key😁"
+            "Try to decipher it. I'll tell you right away that you'll need a key.\n"
+            "Guess for yourself which word is the key😁\n"
             "rqa utvrbe. djzw fubytc nuuj",
             [
                 "Two months. Very little time",
@@ -75,8 +75,8 @@ main_quest = Quest(
             ],
         ),
         Question(
-            "Let's go back to the dark times of human history, in 1939-1945."
-            "(Hint: M3, then 2>2>8)"
+            "Let's go back to the dark times of human history, in 1939-1945.\n"
+            "(Hint: M3, then 2>2>8)\n"
             "Qjctsp evqekdjux bn gjv vspz esucdzzir mq zfp gqdxg",
             [
                 "Yumify community is the best community in the world",
@@ -89,13 +89,13 @@ main_quest = Quest(
             ["Yumify on BingX soon"],
         ),
         Question(
-            "Up to what price can we pump our token?😎"
+            "Up to what price can we pump our token?😎\n"
             "“hint”: 4.67736, -74.09938",
             ["3.5 Ton", "3,5 Ton", "3.5 TON", "3,5 TON"],
         ),
         Question(
-            "10. It won't be that easy, don't get too excited. Moreover, one letter is missing."
-            "I will say that this is letter number 5. But where it is lost and why I will not say. Good luck!"
+            "10. It won't be that easy, don't get too excited. Moreover, one letter is missing. "
+            "I will say that this is letter number 5. But where it is lost and why I will not say. Good luck!\n"
             "(Use Caps Lock when writing your answer. And if you get an answer without spaces... do them yourself)"
             ".-- --  -... -- --.  .--. ... --.- .  .... - ... ..  -.- --. . .. .... ..--..",
 
@@ -103,6 +103,6 @@ main_quest = Quest(
         ),
     ],
     start_message="",
-    good_final="Congratulations! You took the {} place and won {}$! We will check your TG stories, and if there is one, we will send you a prize! If it is not published, we will send you 50% of the reward.",
+    good_final="Congratulations! You took the {} place and won {}$!\n\nWe will check your TG stories, and if there is one, we will send you a prize! If it is not published, we will send you 50% of the reward.",
     bad_final="Unfortunately, 25 participants have already solved this quest☹️\nDon’t worry, there are still many cool activities ahead!",
 )
