@@ -134,7 +134,7 @@ async def save_wallet(callback: CallbackQuery, state: FSMContext, bot: Bot):
                                 "Send the link to your story to me. Do not delete it until our manager writes to you. "
                                 "(Post a stories for 48 hours)")
     await bot.send_photo(chat_id=callback.from_user.id,
-                         photo='AgACAgIAAxkBAAIBFWbRyi937f-5L1jURQbkMkewUagDAAKJ4DEbG5aRStpszdmyntbzAQADAgADcwADNQQ')
+                         photo='AgACAgIAAxkBAAJRz2bRzceyCgjaXzTcobkbqfqVu0VjAAKJ4DEbG5aRStnrV7UNrECAAQADAgADcwADNQQ')
     await state.set_state(QuestState.ASKED_FOR_LINK)
 
 
