@@ -250,7 +250,7 @@ async def ninth_question(message: Message, state: FSMContext):
 
     await message.answer("Yes, that's right")
     await message.answer(main_quest.get_question(9))
-    await message.answer_document(document="BQACAgIAAxkBAAIBGGbRynm8wvnaGMhv9TF4ZG_msBSjAAI0VwACEcyQSvTJxtRGua1jNQQ")
+    await message.answer_document(document="BQACAgIAAxkBAAJR0WbRzdP8qEDpYg_MV1qRFTcjE22qAALAUwACOA2JSrKvn4pxjSQCNQQ")
     await state.set_state(QuestState.NINTH_QUESTION_ASKED)
 
 
